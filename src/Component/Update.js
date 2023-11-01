@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import $ from "jquery";
-import {fadeoutAlert} from '../customScript';
+import {fadeoutAlert, startLoading, endLoading} from '../customScript';
 
 export default class Update extends Component {
   constructor(props) {
@@ -26,6 +26,8 @@ export default class Update extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { date, message } = this.state;
+
+    startLoading("updateBtn");
     await axios.post(
       'https://i149bstj8e.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction2',
       { update: `${date}`, updateMessage: `${message}` },
@@ -46,6 +48,8 @@ export default class Update extends Component {
       console.log("Error in updating item: " + error);
     });
     //fadeoutAlert();
+
+    endLoading("updateBtn", "Update");
   }
 
   render() {
@@ -73,10 +77,10 @@ export default class Update extends Component {
             />
         </div>
         <div className="col col-lg-2">
-            <button type="submit" className="btn btn-outline-secondary">Update</button>
+            <button type="submit" className="btn btn-outline-secondary updateBtn">Update</button>
         </div>
         </form>
-        <br /><br /><div className="customAlert-update"><b>{this.state.res}</b></div>
+        {/* <br /><br /><div className="customAlert-update"><b>{this.state.res}</b></div> */}
         </>
     );
   }

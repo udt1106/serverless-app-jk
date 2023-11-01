@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import $ from "jquery";
-import {fadeoutAlert} from '../customScript';
+import {fadeoutAlert, startLoading, endLoading} from '../customScript';
 
 export default class Delete extends Component {
   constructor(props) {
@@ -26,8 +26,11 @@ export default class Delete extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { date } = this.state;
+
+    startLoading("deleteBtn");
     await axios.post(
       'https://i149bstj8e.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction2',
+      //'https://8k019bf91e.execute-api.us-east-1.amazonaws.com/serverlessAppFunctionHTTPDelete',
       { delete: `${date}` },
     ).then((response)=>{
       if (response.status == "200") {
@@ -45,6 +48,8 @@ export default class Delete extends Component {
       console.log("Error in deleting item: " + error);
     });
     //fadeoutAlert();
+
+    endLoading("deleteBtn", "Delete");
   }
 
   render() {
@@ -55,10 +60,10 @@ export default class Delete extends Component {
             <input type="text" name="date" className="form-control" placeholder="Type unique date" onChange={this.handleChange} value={this.state.date} />
         </div>
         <div className="col col-lg-2">
-            <button type="submit" className="btn btn-outline-secondary">Delete</button>
+            <button type="submit" className="btn btn-outline-secondary deleteBtn">Delete</button>
         </div>
         </form>
-        <br /><br /><div className="customAlert-delete"><b>{this.state.res}</b></div>
+        {/* <br /><br /><div className="customAlert-delete"><b>{this.state.res}</b></div> */}
         </>
     );
   }

@@ -1,8 +1,8 @@
 import $ from 'jquery';
 
-export const fadeoutAlert = () => {
+export const fadeoutAlert = (type) => {
     const myTimeout = window.setTimeout(function() {
-        $(".alertMsg").fadeTo(1000, 0).slideUp(1000, function(){
+        $(".alertMsg").fadeOut(1000, 0).slideUp(1000, function(){
             $(this).remove(); 
         });
     }, 3000);
@@ -10,6 +10,14 @@ export const fadeoutAlert = () => {
     //clearTimeout(myTimeout);
 }
 
-export const refreshPage = () => {
-    window.location.reload(false);
-  }
+export const startLoading = (className) => {
+    $("."+className).css('background-color','lightgreen');
+    $("."+className).text("Loading...");
+    $("."+className).prop('disabled', true);
+}
+
+export const endLoading = (className, text) => {
+    $("."+className).text(text);
+    $("."+className).prop('disabled', false);
+    $("."+className).css('background-color','');
+}

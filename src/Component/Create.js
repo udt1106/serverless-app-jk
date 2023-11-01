@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import $ from "jquery";
 import { Parser } from "html-to-react";
-import {fadeoutAlert, refreshPage} from '../customScript';
+import {fadeoutAlert, refreshPage, startLoading, endLoading} from '../customScript';
 import Read from './Read.js';
 
 export default class Create extends Component {
@@ -27,13 +27,15 @@ export default class Create extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { message } = this.state;
+
+    startLoading("createBtn");
     await axios.post(
       'https://i149bstj8e.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction2',
       { create: `${message}` },
     ).then((response)=>{
       if (response.status == "200") {
         this.setState({
-          res: [(<span className='alertMsg'>Successfully added item: {message}</span>)],
+          res: [(<span className='alertMsgCreate'>Successfully added item: {message}</span>)],
           message: ""
         })
         this.props.callReadUpdate();
@@ -45,7 +47,10 @@ export default class Create extends Component {
     }).catch(function (error) {
       console.log("Error in adding item: " + error);
     });
-    //fadeoutAlert();
+    //$(".alertMsg").show();
+    //fadeoutAlert("Create");
+
+    endLoading("createBtn", "Create");
   }
 
   render() {
@@ -63,10 +68,10 @@ export default class Create extends Component {
             />
         </div>
         <div className="col col-lg-2">
-            <button type="submit" className="btn btn-outline-secondary">Create</button>
+            <button type="submit" className="btn btn-outline-secondary createBtn">Create</button>
         </div>
         </form>
-        <br /><br /><div className="customAlert-create"><b>{(this.state.res)}</b></div>
+        {/* <br /><br /><div className="customAlert-create"><b>{(this.state.res)}</b></div> */}
         </>
     );
   }
