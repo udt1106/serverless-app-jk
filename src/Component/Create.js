@@ -39,7 +39,7 @@ export default class Create extends Component {
       } else {
         this.setState({
           res: "",
-          res: [(<span className='alertMsgGreen'>Successfully added item: {message}</span>)],
+          res: [(<span className='alertMsgGreen'>Successfully added item: <mark>{message}</mark></span>)],
           message: ""
         })
       }

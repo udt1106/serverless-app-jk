@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <div className="container">
         <div className="row justify-content-center">
-          <h2>Create New Item</h2>
+          <h3>Create New Item</h3>
           <Create callReadUpdate = { () => this.readRef.current.handleSubmit(new Event('click'))} />
         </div>
         <div className="row justify-content-center">

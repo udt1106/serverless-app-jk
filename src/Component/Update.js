@@ -35,12 +35,12 @@ export default class Update extends Component {
       if (!foundItem) {
         this.setState({
           res: "",
-          res: [(<span className='alertMsgRed'>Couldn't find the item: {date}</span>)]
+          res: [(<span className='alertMsgRed'>Couldn't find the item: <mark>{date}</mark></span>)]
         })
       } else {
         this.setState({
           res: "",
-          res: [(<span className='alertMsgGreen'>Successfully updated item: {date}</span>)],
+          res: [(<span className='alertMsgGreen'>Successfully updated item: <mark>{date}</mark></span>)],
           date: "",
           message: ""
         })

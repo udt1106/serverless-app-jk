@@ -24,6 +24,7 @@ export default class Read extends Component {
 
   async handleSubmit(event) {
     //event.preventDefault();
+    if (event && event.preventDefault) { event.preventDefault(); }
     startLoading("readBtn");
 
     await axios.get(
