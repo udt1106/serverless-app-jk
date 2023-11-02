@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import $ from "jquery";
-import { Parser } from "html-to-react";
 import {fadeoutAlert, refreshPage, startLoading, endLoading} from '../customScript';
-import Read from './Read.js';
 
 export default class Create extends Component {
   constructor(props) {
@@ -33,23 +30,21 @@ export default class Create extends Component {
       'https://i149bstj8e.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction2',
       { create: `${message}` },
     ).then((response)=>{
-      if (response.status == "200") {
+      var foundItem = response.data;
+      if (!foundItem) {
         this.setState({
-          res: [(<span className='alertMsgCreate'>Successfully added item: {message}</span>)],
-          message: ""
+          res: "",
+          res: [(<span className='alertMsgRed'>Couldn't create the item</span>)]
         })
-        this.props.callReadUpdate();
       } else {
         this.setState({
-          res: "Error in adding item: " + response.data.error
+          res: "",
+          res: [(<span className='alertMsgGreen'>Successfully added item: {message}</span>)],
+          message: ""
         })
       }
-    }).catch(function (error) {
-      console.log("Error in adding item: " + error);
+      this.props.callReadUpdate();
     });
-    //$(".alertMsg").show();
-    //fadeoutAlert("Create");
-
     endLoading("createBtn", "Create");
   }
 
@@ -71,7 +66,7 @@ export default class Create extends Component {
             <button type="submit" className="btn btn-outline-secondary createBtn">Create</button>
         </div>
         </form>
-        {/* <br /><br /><div className="customAlert-create"><b>{(this.state.res)}</b></div> */}
+        <br /><br /><div className="customAlert-create"><b>{(this.state.res)}</b></div>
         </>
     );
   }

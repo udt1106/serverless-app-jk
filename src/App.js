@@ -4,6 +4,7 @@ import Delete from './Component/Delete.js';
 import Update from './Component/Update.js';
 import Read from './Component/Read.js';
 import {CustomScript} from './customScript.js';
+import './customStyle.css';
 
 class App extends Component {
 

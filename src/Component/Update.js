@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import $ from "jquery";
 import {fadeoutAlert, startLoading, endLoading} from '../customScript';
 
 export default class Update extends Component {
@@ -32,20 +31,21 @@ export default class Update extends Component {
       'https://i149bstj8e.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction2',
       { update: `${date}`, updateMessage: `${message}` },
     ).then((response)=>{
-      if (response.status == "200") {
+      var foundItem = response.data;
+      if (!foundItem) {
         this.setState({
-          res: [(<span className='alertMsg'>Successfully updated item</span>)],
+          res: "",
+          res: [(<span className='alertMsgRed'>Couldn't find the item: {date}</span>)]
+        })
+      } else {
+        this.setState({
+          res: "",
+          res: [(<span className='alertMsgGreen'>Successfully updated item: {date}</span>)],
           date: "",
           message: ""
         })
-        this.props.callReadUpdate();
-      } else {
-        this.setState({
-          res: "Error in updating item: " + response.data.error
-        })
       }
-    }).catch(function (error) {
-      console.log("Error in updating item: " + error);
+      this.props.callReadUpdate();
     });
     //fadeoutAlert();
 
@@ -80,7 +80,7 @@ export default class Update extends Component {
             <button type="submit" className="btn btn-outline-secondary updateBtn">Update</button>
         </div>
         </form>
-        {/* <br /><br /><div className="customAlert-update"><b>{this.state.res}</b></div> */}
+        <br /><br /><div className="customAlert-update"><b>{this.state.res}</b></div>
         </>
     );
   }

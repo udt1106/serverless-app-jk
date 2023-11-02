@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import $ from "jquery";
-import Create from './Create.js';
 import {fadeoutAlert, startLoading, endLoading} from '../customScript';
 
 export default class Read extends Component {

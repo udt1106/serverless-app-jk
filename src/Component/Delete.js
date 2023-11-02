@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import $ from "jquery";
 import {fadeoutAlert, startLoading, endLoading} from '../customScript';
 
 export default class Delete extends Component {
@@ -30,22 +29,23 @@ export default class Delete extends Component {
     startLoading("deleteBtn");
     await axios.post(
       'https://i149bstj8e.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction2',
-      //'https://8k019bf91e.execute-api.us-east-1.amazonaws.com/serverlessAppFunctionHTTPDelete',
       { delete: `${date}` },
     ).then((response)=>{
-      if (response.status == "200") {
+
+      var foundItem = response.data;
+      if (!foundItem) {
         this.setState({
-          res: [(<span className='alertMsg'>Successfully deleted item: {date}</span>)],
-          date: ""
+          res: "",
+          res: [(<span className='alertMsgRed'>Couldn't find the item: {date}</span>)]
         })
-        this.props.callReadUpdate();
       } else {
         this.setState({
-          res: "Error in deleting item: " + `${date}` + response.data.error
+          res: "",
+          res: [(<span className='alertMsgGreen'>Successfully deleted item: {date}</span>)],
+          date: ""
         })
       }
-    }).catch(function (error) {
-      console.log("Error in deleting item: " + error);
+      this.props.callReadUpdate();
     });
     //fadeoutAlert();
 
@@ -63,7 +63,7 @@ export default class Delete extends Component {
             <button type="submit" className="btn btn-outline-secondary deleteBtn">Delete</button>
         </div>
         </form>
-        {/* <br /><br /><div className="customAlert-delete"><b>{this.state.res}</b></div> */}
+        <br /><br /><div className="customAlert-delete"><b>{this.state.res}</b></div>
         </>
     );
   }
