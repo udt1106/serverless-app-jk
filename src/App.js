@@ -21,15 +21,15 @@ class App extends Component {
           <Create callReadUpdate = { () => this.readRef.current.handleSubmit(new Event('click'))} />
         </div>
         <div className="row justify-content-center">
-          <h2>Delete an Item</h2>
+          <h3>Delete an Item</h3>
           <Delete callReadUpdate = { () => this.readRef.current.handleSubmit(new Event('click'))} />
         </div>
         <div className="row justify-content-center">
-          <h2>Update an Item</h2>
+          <h3>Update an Item</h3>
           <Update callReadUpdate = { () => this.readRef.current.handleSubmit(new Event('click'))} />
         </div>
         <div className="row justify-content-center">
-          <h2>Read Items</h2>
+          <h3>Read Items</h3>
           <Read ref={this.readRef} />
         </div>
       </div>

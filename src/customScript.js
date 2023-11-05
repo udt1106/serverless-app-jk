@@ -21,3 +21,13 @@ export const endLoading = (className, text) => {
     $("."+className).prop('disabled', false);
     $("."+className).css('background-color','');
 }
+
+export const convertUnixTimestamp = (unixTimeStamp) => {
+    const unixTimestamp = unixTimeStamp
+    const milliseconds = unixTimeStamp * 1000
+    const dateObject = new Date(milliseconds)
+    const humanDateFormat = dateObject.toLocaleString() //2019-12-9 10:30:15
+
+    return humanDateFormat;
+}
+

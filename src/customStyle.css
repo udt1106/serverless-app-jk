@@ -1,2 +1,28 @@
 .alertMsgRed { color: red; }
 .alertMsgGreen { color: green; }
+
+
+table {
+    table-layout: fixed;
+}
+td {
+    white-space: normal !important; 
+    word-wrap: break-word;
+    max-width: 50px;
+    width:50%;
+    /* max-width: 160px;  */
+}
+
+.th-sm-1 {
+    width:5%;
+}
+.th-sm-2 {
+    width:10%;
+}
+.th-sm-3 {
+    width:20%;
+}
+.th-sm-4 {
+    width:50%;
+}
+
