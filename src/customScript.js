@@ -26,8 +26,14 @@ export const convertUnixTimestamp = (unixTimeStamp) => {
     const unixTimestamp = unixTimeStamp
     const milliseconds = unixTimeStamp * 1000
     const dateObject = new Date(milliseconds)
-    const humanDateFormat = dateObject.toLocaleString() //2019-12-9 10:30:15
+    const humanDateFormat = dateObject.toLocaleString("en-US", { // you can use undefined as first argument
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+    })
 
     return humanDateFormat;
 }
-

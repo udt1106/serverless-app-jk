@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {fadeoutAlert, startLoading, endLoading, convertUnixTimestamp} from '../customScript';
-import $ from 'jquery';
+import { serverlessAppFunctionHTTP } from '../config';
 
 
 
@@ -31,7 +31,7 @@ export default class Read extends Component {
     startLoading("readBtn");
 
     await axios.get(
-      'https://59j2xky5vl.execute-api.us-east-1.amazonaws.com/serverlessAppFunctionHTTP',
+      serverlessAppFunctionHTTP(),
     ).then((response)=>{
 
       //const convertString = JSON.parse(response);

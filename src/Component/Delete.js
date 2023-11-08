@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {fadeoutAlert, startLoading, endLoading} from '../customScript';
+import { serverlessAppFunction2 } from '../config';
 
 export default class Delete extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export default class Delete extends Component {
 
     startLoading("deleteBtn");
     await axios.post(
-      'https://i149bstj8e.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction2',
+      serverlessAppFunction2(),
       { delete: `${date}` },
     ).then((response)=>{
 

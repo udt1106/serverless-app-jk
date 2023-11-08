@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {fadeoutAlert, refreshPage, startLoading, endLoading} from '../customScript';
+import { serverlessAppFunction2 } from '../config';
 
 export default class Create extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export default class Create extends Component {
 
     startLoading("createBtn");
     await axios.post(
-      'https://i149bstj8e.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction2',
+      serverlessAppFunction2(),
       { create: `${message}` },
     ).then((response)=>{
       var foundItem = response.data;
