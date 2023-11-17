@@ -26,7 +26,7 @@ export default class Update extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { date, message } = this.state;
-
+    
     startLoading("updateBtn");
     await axios.post(
       serverlessAppFunction2(),
